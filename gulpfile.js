@@ -11,12 +11,13 @@ var concat = require( 'gulp-concat' );
 var uglify = require( 'gulp-uglify' );
 var imagemin = require( 'gulp-imagemin' );
 var zip = require('gulp-zip');
+var modernizr = require('gulp-modernizr');
 var browserSync = require('browser-sync').create();
 
 var cfg = require( './gulpconfig.json' );
 var paths = cfg.paths;
 
-// Sass task
+// Mark: SASS Task
 gulp.task( 'sass', function() {
     return stream = gulp.src( paths.sass + '/main.scss' )
         .pipe( sass( { errLogToConsole: true } ) )
@@ -26,7 +27,7 @@ gulp.task( 'sass', function() {
 
 });
 
-// MinifyCSS Task
+// Mark: MinifyCSS Task
 gulp.task( 'minifycss', function() {
     return gulp.src( paths.css + '/style.css' )
         .pipe( sourcemaps.init( { loadMaps: true } ) )
@@ -36,11 +37,9 @@ gulp.task( 'minifycss', function() {
         .pipe( gulp.dest( paths.css ) );
 });
 
-
+// Mark: Scripts Task
 gulp.task( 'scripts', async function() {
     var scripts = [
-
-        //
         paths.dev + '/js/bootstrap.js',
         paths.dev + '/js/modernizr-custom.js',
         paths.dev + '/js/aos.js',
@@ -50,8 +49,6 @@ gulp.task( 'scripts', async function() {
         paths.dev + '/js/custom-js.js'
     ];
 
-    var google = [paths.dev + '/js/google-config.js'];
-
     gulp.src( scripts )
         .pipe( concat( 'scripts.min.js' ) )
         .pipe( uglify() )
@@ -59,15 +56,6 @@ gulp.task( 'scripts', async function() {
 
     gulp.src( scripts )
         .pipe( concat( 'scripts.js' ) )
-        .pipe( gulp.dest( paths.js ) );
-
-    gulp.src( google )
-        .pipe( concat( 'google-config.min.js' ) )
-        .pipe( uglify() )
-        .pipe( gulp.dest( paths.js ) );
-
-    gulp.src( google )
-        .pipe( concat( 'google-config.js' ) )
         .pipe( gulp.dest( paths.js ) );
 });
 
@@ -113,7 +101,6 @@ gulp.task('copy-assets', async function () {
         .pipe(gulp.dest(paths.sass + '/assets/aos-src'));
 });
 
-
 // Run gulp copy all images
 gulp.task('copy-img', async function () {
     gulp.src(paths.imgsrc + '/**/*')
@@ -126,9 +113,7 @@ gulp.task('copy-fonts', async function () {
         .pipe(gulp.dest(paths.fonts))
 });
 
-// Run:
-// gulp imagemin
-// Running image optimizing task
+// Run: gulp imagemin
 gulp.task( 'imagemin', async function() {
     gulp.src( paths.imgsrc + '/**/*.png' )
         .pipe( imagemin() )
@@ -149,5 +134,11 @@ gulp.task('release', async function () {
     gulp.src('./dist/*')
         .pipe(zip('release.zip'))
         .pipe(gulp.dest('./_RELEASE'));
+});
+
+// Run gulp modernizr-build
+gulp.task('modernizr-build', async function () {
+    gulp.src('./src/js/*.js')
+        .pipe(modernizr('modernizr-custom.js'));
 });
 
