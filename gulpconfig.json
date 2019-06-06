@@ -1,0 +1,14 @@
+{
+  "paths" : {
+    "js": "./dist/js",
+    "css": "./dist/css",
+    "img": "./dist/img",
+    "fonts": "./dist/fonts",
+    "imgsrc": "./src/img",
+    "sass": "./src/scss",
+    "node": "./node_modules/",
+    "dev": "./src",
+    "dist": "./dist",
+    "devjs": "./src/js"
+  }
+}
