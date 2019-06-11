@@ -1,6 +1,6 @@
 {
   "name": "snoozestrap",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "An easy-to-use HTML framework",
   "main": "index.js",
   "scripts": {
@@ -24,9 +24,6 @@
   },
   "homepage": "https://github.com/snoozeDev/SnoozeStrap#readme",
   "devDependencies": {
-    "aos": "^2.3.4",
-    "axios": ">=0.18.1",
-    "bootstrap": "^4.3.1",
     "browser-sync": "^2.26.5",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
@@ -40,10 +37,14 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^5.0.0",
-    "jquery": "^3.4.1",
-    "modernizr": "^3.7.1",
-    "popper.js": "^1.15.0",
     "uglifycss": "0.0.29"
   },
-  "dependencies": {}
+  "dependencies": {
+    "aos": "^2.3.4",
+    "axios": ">=0.18.1",
+    "bootstrap": "^4.3.1",
+    "modernizr": "^3.7.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
+  }
 }
