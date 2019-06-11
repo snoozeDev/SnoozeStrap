@@ -37,6 +37,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^5.0.0",
+    "pug": "^2.0.3",
     "uglifycss": "0.0.29"
   },
   "dependencies": {
