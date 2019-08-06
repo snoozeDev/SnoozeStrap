@@ -1,6 +1,6 @@
 {
   "name": "snoozestrap",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "description": "An easy-to-use HTML framework",
   "main": "index.js",
   "scripts": {
