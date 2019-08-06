@@ -12,6 +12,7 @@ var uglify = require( 'gulp-uglify' );
 var imagemin = require( 'gulp-imagemin' );
 var zip = require('gulp-zip');
 var modernizr = require('gulp-modernizr');
+var pug = require('gulp-pug');
 var browserSync = require('browser-sync').create();
 
 var cfg = require( './gulpconfig.json' );
@@ -142,3 +143,13 @@ gulp.task('modernizr-build', async function () {
         .pipe(modernizr('modernizr-custom.js'));
 });
 
+// Run gulp pug
+gulp.task('pug', function buildHTML() {
+    return gulp.src(paths.dev + '/views/*.pug')
+        .pipe(pug({
+            filename: "template.pug",
+            debug: true,
+            client: true
+        }))
+        .pipe(gulp.dest("./"))
+});
