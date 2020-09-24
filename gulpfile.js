@@ -148,8 +148,9 @@ gulp.task('pug', function buildHTML() {
     return gulp.src(paths.dev + '/views/*.pug')
         .pipe(pug({
             filename: "template.pug",
+            doctype: 'html',
             debug: true,
-            client: true
+            client: false
         }))
-        .pipe(gulp.dest("./"))
+        .pipe(gulp.dest("./dist/"))
 });
