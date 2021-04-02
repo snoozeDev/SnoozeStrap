@@ -9,6 +9,7 @@
     "node": "./node_modules/",
     "dev": "./src",
     "dist": "./dist",
-    "devjs": "./src/js"
+    "devjs": "./src/js",
+    "pug": "./src/pug/"
   }
 }
