@@ -145,9 +145,8 @@ gulp.task('modernizr-build', async function () {
 
 // Run gulp pug
 gulp.task('pug', function buildHTML() {
-    return gulp.src(paths.dev + '/views/*.pug')
+    return gulp.src(paths.dev + '/pug/views/*.pug')
         .pipe(pug({
-            filename: "template.pug",
             doctype: 'html',
             debug: true,
             client: false
