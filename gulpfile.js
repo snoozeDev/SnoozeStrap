@@ -65,12 +65,6 @@ gulp.task('bs-reload', function (done) {
     done();
 });
 
-// Run gulp watch
-gulp.task( 'watch', function() {
-    gulp.watch( paths.sass + '/*.scss', gulp.series('sass', 'minifycss') );
-    gulp.watch( [paths.devjs + '/*.js'], gulp.series('scripts') );
-});
-
 // Run gulp watch-bs
 gulp.task( 'watch-bs', function() {
     browserSync.init({
@@ -145,11 +139,18 @@ gulp.task('modernizr-build', async function () {
 
 // Run gulp pug
 gulp.task('pug', function buildHTML() {
-    return gulp.src(paths.dev + '/pug/views/*.pug')
+    return gulp.src(paths.pug + 'views/*.pug')
         .pipe(pug({
             doctype: 'html',
             debug: true,
             client: false
         }))
         .pipe(gulp.dest("./dist/"))
+});
+
+// Run gulp watch
+gulp.task( 'watch', function() {
+    gulp.watch( paths.sass + '/*.scss', gulp.series('sass', 'minifycss') );
+    gulp.watch( [paths.devjs + '/*.js'], gulp.series('scripts') );
+    gulp.watch( paths.pug + '*/*.pug', gulp.series('pug') );
 });
