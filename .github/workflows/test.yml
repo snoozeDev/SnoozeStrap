@@ -1,0 +1,9 @@
+- name: Create Awesome Badge
+  uses: snoozeDev/SnoozeStrap@1.0.0
+  with:
+    auth: ${{ secrets.GIST_SECRET }}
+    gistID: 4d57385a2ea4893a5b10e199c2db4e1e
+    filename: test.json
+    label: Hello
+    message: World
+    color: orange
