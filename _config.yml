@@ -1,1 +1,3 @@
 theme: jekyll-theme-cayman
+- name: Dynamic Badges
+  uses: Schneegans/dynamic-badges-action@v1.0.0
