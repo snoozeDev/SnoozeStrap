@@ -1,5 +1,11 @@
 # SnoozeStrap
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/snoozedev/snoozestrap?color=brightgreen)
+![David](https://img.shields.io/david/snoozedev/snoozestrap)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/snoozedev/snoozestrap/master?color=informational)
+![GitHub repo size](https://img.shields.io/github/repo-size/snoozedev/snoozestrap)
+![GitHub](https://img.shields.io/github/license/snoozedev/snoozestrap)
+
 ## Development Set-up
 
 1. Run `$> npm install` to install dependencies.
