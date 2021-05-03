@@ -4,10 +4,11 @@
   "description": "An easy-to-use HTML framework",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "taskr minifyJS && next dev",
+    "build": "next build && next export",
     "start": "next start",
-    "task": "taskr copySass"
+    "init": "taskr copyAssets",
+    "minify": "taskr minifyJS"
   },
   "keywords": [
     "HTML5",
@@ -36,6 +37,8 @@
     "taskr": "^1.1.0"
   },
   "devDependencies": {
+    "@taskr/concat": "^1.1.0",
+    "@taskr/uglify": "^1.1.0",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.13",
     "tailwindcss": "^2.1.2"
