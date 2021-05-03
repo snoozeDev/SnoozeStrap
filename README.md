@@ -12,3 +12,12 @@
 - Replace standard HTML/CSS/JS development with NextJS/Sass
 - Add any custom NPM package
 - Fully customizable
+
+## Includes
+
+### Front-End
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [AOS](https://michalsnik.github.io/aos/)
+
+### Dev
+- [Taskr](https://github.com/lukeed/taskr)
