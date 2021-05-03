@@ -4,4 +4,3 @@ node_modules
 .next
 .npmignore
 .vscode
-styles/theme/assets/aos/*
