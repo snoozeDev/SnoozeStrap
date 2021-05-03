@@ -8,7 +8,7 @@
 
 ## What is Snoozestrap ?
 
-**Snoozestrap** is a useful framework for easily creating dynamic landing pages.
-- Replace standard HTML/CSS/JS development with PUG/SASS/NodeJS
+**Snoozestrap** is an all-in-one framework for easily creating dynamic websites and applications .
+- Replace standard HTML/CSS/JS development with NextJS/Sass
 - Add any custom NPM package
 - Fully customizable
