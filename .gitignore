@@ -5,3 +5,5 @@ node_modules
 .npmignore
 .vscode
 public
+src/js/aos.js
+styles/theme/assets/**/*

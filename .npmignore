@@ -1,4 +1,8 @@
-.vscode
+.idea/**/*
+.git/**/*
 node_modules
-snoozestrap-1.0.1.tgz
 .next
+.vscode
+public
+src/js/aos.js
+styles/theme/assets/**/*
