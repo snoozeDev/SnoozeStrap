@@ -4,6 +4,5 @@ node_modules
 .next
 .npmignore
 .vscode
-public
 src/js/aos.js
 styles/theme/assets/**/*
