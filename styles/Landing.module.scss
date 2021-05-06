@@ -1,0 +1,17 @@
+@import "theme/main";
+
+.header {
+    background-color: black;
+
+    h1 {
+        // outline: 3px solid black;
+        color: white;
+        -webkit-text-stroke: 1px black;
+    }
+
+    p {
+        // outline: 3px solid white;
+        color: black;
+        -webkit-text-stroke: 1px white;
+    }
+}

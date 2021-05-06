@@ -1,14 +1,18 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import styles from '../../styles/Landing.module.scss'
 
 export default function FirstPost() {
+
+  let array = [...Array(5)]
+
   return (
     <>
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">
-          <a>Back to home</a>
-        </Link>
-      </h2>
+      <header className={styles.header}>
+        <div>{array.map(_=><p className={styles.test}>SNOOZESTRAP</p>)}</div>
+        <div><h1>SNOOZESTRAP</h1></div>
+        <div>{array.map(_=><p className={styles.test}>SNOOZESTRAP</p>)}</div>
+      </header>
     </>
   )
 }
