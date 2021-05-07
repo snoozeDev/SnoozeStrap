@@ -9,18 +9,18 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #0070f3;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 * {
   box-sizing: border-box;
 }
 
-header{
-  background-color: black;
-}
-
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
