@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
-    "axios": "^1.21.0",
     "bootstrap": "^4.6.2",
     "jquery": "^3.7.1",
     "modernizr": "^3.13.1",
