@@ -17,7 +17,7 @@ var paths = cfg.paths;
 
 // Mark: SASS Task
 gulp.task( 'sass', function() {
-    return stream = gulp.src( paths.sass + '/main.scss' )
+    return gulp.src( paths.sass + '/main.scss' )
         .pipe( sass( {
             // Resolve "bootstrap/scss/..." straight from node_modules
             loadPaths: [ paths.node ],
@@ -73,7 +73,17 @@ var bsOptions = {
         baseDir: 'dist'
     },
     listen: 'localhost',
-    ui: false
+    ui: false,
+    // Inject the reload client as an external script so the page's CSP
+    // (script-src 'self') doesn't block it; the default snippet is inline
+    snippetOptions: {
+        rule: {
+            match: /<\/body>/i,
+            fn: function ( snippet, match ) {
+                return '<script async src="/browser-sync/browser-sync-client.js"></script>' + match;
+            }
+        }
+    }
 };
 
 gulp.task('bs-reload', function (done) {
