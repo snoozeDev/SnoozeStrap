@@ -2,16 +2,15 @@
 @import "fonts";
 /*******************
 *
-* Bootstrap4
+* Bootstrap 5 (also pulls in _variables.scss at the right spot)
 *
 ********************/
-@import "assets/bootstrap4";
+@import "assets/bootstrap";
 /*******************
 *
 * Custom CSS
 *
 ********************/
-@import "variables";
 @import "overrides";
 @import "theme";
 /*******************

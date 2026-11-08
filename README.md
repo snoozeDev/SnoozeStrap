@@ -16,7 +16,9 @@
 ## Development Set-up
 
 1. Run `$> npm install` to install dependencies.
-2. Run `$> gulp copy-assets` to copy assets from modules.
+2. Run `$> gulp copy-assets` to copy AOS assets from modules (Bootstrap 5 SCSS/JS are read straight from `node_modules`).
+
+Bootstrap variable overrides go in `src/scss/_variables.scss`; pick which Bootstrap components to compile in `src/scss/assets/_bootstrap.scss`.
 5. Run `$> gulp watch` to compile SCSS, JS and PUG files as you code.
 6. Run `$> gulp watch-bs` to enable browser-sync & compile SCSS and JS files as you code.
 
