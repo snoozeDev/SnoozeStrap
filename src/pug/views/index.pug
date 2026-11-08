@@ -1,8 +1,42 @@
 extends ../templates/layout.pug
 
 block header
-    title Hello World
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title SnoozeStrap
     link(rel='stylesheet', href='./css/style.min.css')
 
 block body
-    h1 Hello World
+    nav.navbar.navbar-expand-lg.bg-body-tertiary
+        .container
+            a.navbar-brand(href='#') SnoozeStrap
+            button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#mainNav', aria-controls='mainNav', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #mainNav.collapse.navbar-collapse
+                ul.navbar-nav.ms-auto
+                    li.nav-item.dropdown
+                        a.nav-link.dropdown-toggle(href='#', role='button', data-bs-toggle='dropdown', aria-expanded='false') Menu
+                        ul.dropdown-menu.dropdown-menu-end
+                            li: a.dropdown-item(href='#') Item one
+                            li: a.dropdown-item(href='#') Item two
+
+    main.container.py-5
+        h1 Hello World
+        p.lead Bootstrap 5 starter. Replace this page with your own content.
+        button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#demoModal') Open modal
+
+        .row.mt-5
+            each n in [1, 2, 3]
+                .col-md-4.mb-3(data-aos='fade-up', data-aos-delay=n * 100)
+                    .card
+                        .card-body
+                            h5.card-title Card #{n}
+                            p.card-text Animated on scroll with AOS.
+
+    #demoModal.modal.fade(tabindex='-1', aria-labelledby='demoModalLabel', aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5#demoModalLabel.modal-title It works
+                    button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                .modal-body Bootstrap 5 JS is loaded.

@@ -18,7 +18,14 @@ var paths = cfg.paths;
 // Mark: SASS Task
 gulp.task( 'sass', function() {
     return stream = gulp.src( paths.sass + '/main.scss' )
-        .pipe( sass().on( 'error', sass.logError ) )
+        .pipe( sass( {
+            // Resolve "bootstrap/scss/..." straight from node_modules
+            loadPaths: [ paths.node ],
+            // Bootstrap 5.3 still relies on @import and legacy Sass functions:
+            // hide warnings coming from node_modules and from our own @import usage
+            quietDeps: true,
+            silenceDeprecations: [ 'import' ]
+        } ).on( 'error', sass.logError ) )
         .pipe( autoprefixer( 'last 2 versions' ) )
         .pipe( rename( 'style.css' ) )
         .pipe( gulp.dest( paths.css ) );
@@ -35,7 +42,8 @@ gulp.task( 'minifycss', function() {
 
 // Mark: Scripts Task
 var scripts = [
-    paths.dev + '/js/bootstrap.js',
+    // Bootstrap 5 bundle ships Popper; no jQuery needed
+    paths.node + 'bootstrap/dist/js/bootstrap.bundle.js',
     paths.dev + '/js/modernizr-custom.js',
     paths.dev + '/js/aos.js',
 
@@ -82,17 +90,7 @@ gulp.task( 'watch-bs', function() {
 });
 
 // Copy Assets
-// Copy bootstrap JS file
-function copyBootstrapJs() {
-    return gulp.src(paths.node + 'bootstrap/dist/js/bootstrap.js')
-        .pipe(gulp.dest(paths.devjs));
-}
-
-//Copy bootstrap SCSS files
-function copyBootstrapScss() {
-    return gulp.src(paths.node + 'bootstrap/scss/**/*.scss')
-        .pipe(gulp.dest(paths.sass + '/assets/bootstrap-src'));
-}
+// (Bootstrap JS and SCSS are read straight from node_modules, no copy needed)
 
 //Copy AOS JS file
 function copyAosJs() {
@@ -106,7 +104,7 @@ function copyAosScss() {
         .pipe(gulp.dest(paths.sass + '/assets/aos-src'));
 }
 
-gulp.task('copy-assets', gulp.parallel(copyBootstrapJs, copyBootstrapScss, copyAosJs, copyAosScss));
+gulp.task('copy-assets', gulp.parallel(copyAosJs, copyAosScss));
 
 // Run gulp copy all images
 gulp.task('copy-img', function () {

@@ -2,8 +2,6 @@
 .git/**/*
 node_modules
 src/js/aos.js
-src/js/bootstrap.js
 src/scss/assets/aos-src
-src/scss/assets/bootstrap-src
 .vscode
 *.map
