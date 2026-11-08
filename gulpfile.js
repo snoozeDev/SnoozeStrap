@@ -1,15 +1,13 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 // var plumber = require('gulp-plumber');
 // var watch = require( 'gulp-watch' );
 // var gulpSequence = require('gulp-sequence');
-var sourcemaps = require( 'gulp-sourcemaps' );
 var cleanCSS = require( 'gulp-clean-css' );
 var autoprefixer = require( 'gulp-autoprefixer' );
 var rename = require( 'gulp-rename' );
 var concat = require( 'gulp-concat' );
 var uglify = require( 'gulp-uglify' );
-var imagemin = require( 'gulp-imagemin' );
 var zip = require('gulp-zip');
 var modernizr = require('gulp-modernizr');
 var pug = require('gulp-pug');
@@ -21,7 +19,7 @@ var paths = cfg.paths;
 // Mark: SASS Task
 gulp.task( 'sass', function() {
     return stream = gulp.src( paths.sass + '/main.scss' )
-        .pipe( sass( { errLogToConsole: true } ) )
+        .pipe( sass().on( 'error', sass.logError ) )
         .pipe( autoprefixer( 'last 2 versions' ) )
         .pipe( rename( 'style.css' ) )
         .pipe( gulp.dest( paths.css ) );
@@ -30,12 +28,10 @@ gulp.task( 'sass', function() {
 
 // Mark: MinifyCSS Task
 gulp.task( 'minifycss', function() {
-    return gulp.src( paths.css + '/style.css' )
-        .pipe( sourcemaps.init( { loadMaps: true } ) )
+    return gulp.src( paths.css + '/style.css', { sourcemaps: true } )
         .pipe( cleanCSS( { compatibility: '*' } ) )
         .pipe( rename( { suffix: '.min' } ) )
-        .pipe( sourcemaps.write( './' ) )
-        .pipe( gulp.dest( paths.css ) );
+        .pipe( gulp.dest( paths.css, { sourcemaps: '.' } ) );
 });
 
 // Mark: Scripts Task
@@ -98,19 +94,21 @@ gulp.task('copy-assets', async function () {
 
 // Run gulp copy all images
 gulp.task('copy-img', async function () {
-    gulp.src(paths.imgsrc + '/**/*')
+    gulp.src(paths.imgsrc + '/**/*', { encoding: false })
         .pipe(gulp.dest(paths.img))
 });
 
 // Run gulp copy all images
 gulp.task('copy-fonts', async function () {
-    gulp.src(paths.dev + '/fonts/**/*.woff')
+    gulp.src(paths.dev + '/fonts/**/*.woff', { encoding: false })
         .pipe(gulp.dest(paths.fonts))
 });
 
 // Run: gulp imagemin
 gulp.task( 'imagemin', async function() {
-    gulp.src( paths.imgsrc + '/**/*.png' )
+    // gulp-imagemin 8+ is ESM-only
+    var imagemin = ( await import( 'gulp-imagemin' ) ).default;
+    gulp.src( paths.imgsrc + '/**/*.png', { encoding: false } )
         .pipe( imagemin() )
         .pipe( gulp.dest( paths.img ) );
 });
@@ -126,7 +124,7 @@ gulp.task('browser-sync', async function() {
 
 //Run gulp release
 gulp.task('release', async function () {
-    gulp.src('./dist/*')
+    gulp.src('./dist/*', { encoding: false })
         .pipe(zip('release.zip'))
         .pipe(gulp.dest('./_RELEASE'));
 });
