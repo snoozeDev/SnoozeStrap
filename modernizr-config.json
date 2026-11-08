@@ -1,0 +1,20 @@
+{
+  "minify": true,
+  "options": [
+    "addTest",
+    "hasEvent",
+    "setClasses",
+    "testProp",
+    "testStyles"
+  ],
+  "feature-detects": [
+    "css/animations",
+    "svg",
+    "svg/asimg",
+    "svg/clippaths",
+    "svg/filters",
+    "svg/foreignobject",
+    "svg/inline",
+    "svg/smil"
+  ]
+}

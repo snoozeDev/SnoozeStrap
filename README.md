@@ -23,11 +23,15 @@
 ## Images
 
 1. Run `$> gulp copy-img` to copy images form `./src` to `./dist`.
-2. Run `$> gulp imagemin` to minify images in `./dist/img`.
+2. Optimize images before adding them to `./src/img` (e.g. with [Squoosh](https://squoosh.app)).
+
+## Modernizr
+
+Detected features are listed in `modernizr-config.json`. Run `$> npm run modernizr` to rebuild `./src/js/modernizr-custom.js`, then `$> gulp scripts`.
 
 ## Deploy
 
-Copy contents of `/dist` to FTP server to deploy.
+Copy contents of `/dist` to the server over SFTP or FTPS (not plain FTP, which sends credentials unencrypted).
 
 ## Release
 

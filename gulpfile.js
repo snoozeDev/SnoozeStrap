@@ -9,7 +9,6 @@ var rename = require( 'gulp-rename' );
 var concat = require( 'gulp-concat' );
 var uglify = require( 'gulp-uglify' );
 var zip = require('gulp-zip');
-var modernizr = require('gulp-modernizr');
 var pug = require('gulp-pug');
 var browserSync = require('browser-sync').create();
 
@@ -35,26 +34,39 @@ gulp.task( 'minifycss', function() {
 });
 
 // Mark: Scripts Task
-gulp.task( 'scripts', async function() {
-    var scripts = [
-        paths.dev + '/js/bootstrap.js',
-        paths.dev + '/js/modernizr-custom.js',
-        paths.dev + '/js/aos.js',
+var scripts = [
+    paths.dev + '/js/bootstrap.js',
+    paths.dev + '/js/modernizr-custom.js',
+    paths.dev + '/js/aos.js',
 
-        // Adding currently empty javascript file to add on for your own themes´ customizations
-        // Please add any customizations to this .js file only!
-        paths.dev + '/js/custom-js.js'
-    ];
+    // Adding currently empty javascript file to add on for your own themes´ customizations
+    // Please add any customizations to this .js file only!
+    paths.dev + '/js/custom-js.js'
+];
 
-    gulp.src( scripts )
+function scriptsMin() {
+    return gulp.src( scripts )
         .pipe( concat( 'scripts.min.js' ) )
         .pipe( uglify() )
         .pipe( gulp.dest( paths.js ) );
+}
 
-    gulp.src( scripts )
+function scriptsFull() {
+    return gulp.src( scripts )
         .pipe( concat( 'scripts.js' ) )
         .pipe( gulp.dest( paths.js ) );
-});
+}
+
+gulp.task( 'scripts', gulp.parallel( scriptsMin, scriptsFull ) );
+
+// Dev server: localhost only, no browser-sync control panel
+var bsOptions = {
+    server: {
+        baseDir: 'dist'
+    },
+    listen: 'localhost',
+    ui: false
+};
 
 gulp.task('bs-reload', function (done) {
     browserSync.reload();
@@ -63,76 +75,61 @@ gulp.task('bs-reload', function (done) {
 
 // Run gulp watch-bs
 gulp.task( 'watch-bs', function() {
-    browserSync.init({
-        server: {
-            baseDir: 'dist'
-        },
-    });
+    browserSync.init( bsOptions );
     gulp.watch( paths.sass + '/*.scss', gulp.series('sass', 'minifycss', 'bs-reload') );
     gulp.watch( [paths.devjs + '/*.js'], gulp.series('scripts', 'bs-reload') );
     gulp.watch([paths.dist + '/*.html'], gulp.series('bs-reload'));
 });
 
 // Copy Assets
-gulp.task('copy-assets', async function () {
-    // Copy bootstrap JS file
-    gulp.src(paths.node + 'bootstrap/dist/js/bootstrap.js')
+// Copy bootstrap JS file
+function copyBootstrapJs() {
+    return gulp.src(paths.node + 'bootstrap/dist/js/bootstrap.js')
         .pipe(gulp.dest(paths.devjs));
+}
 
-    //Copy bootstrap SCSS files
-    gulp.src(paths.node + 'bootstrap/scss/**/*.scss')
+//Copy bootstrap SCSS files
+function copyBootstrapScss() {
+    return gulp.src(paths.node + 'bootstrap/scss/**/*.scss')
         .pipe(gulp.dest(paths.sass + '/assets/bootstrap-src'));
+}
 
-    //Copy AOS JS file
-    gulp.src(paths.node + 'aos/dist/**/*.js')
+//Copy AOS JS file
+function copyAosJs() {
+    return gulp.src(paths.node + 'aos/dist/**/*.js')
         .pipe(gulp.dest(paths.devjs));
+}
 
-    //Copy AOS SASS file
-    gulp.src(paths.node + 'aos/src/sass/*.scss')
+//Copy AOS SASS file
+function copyAosScss() {
+    return gulp.src(paths.node + 'aos/src/sass/*.scss')
         .pipe(gulp.dest(paths.sass + '/assets/aos-src'));
-});
+}
+
+gulp.task('copy-assets', gulp.parallel(copyBootstrapJs, copyBootstrapScss, copyAosJs, copyAosScss));
 
 // Run gulp copy all images
-gulp.task('copy-img', async function () {
-    gulp.src(paths.imgsrc + '/**/*', { encoding: false })
-        .pipe(gulp.dest(paths.img))
+gulp.task('copy-img', function () {
+    return gulp.src(paths.imgsrc + '/**/*', { encoding: false })
+        .pipe(gulp.dest(paths.img));
 });
 
-// Run gulp copy all images
-gulp.task('copy-fonts', async function () {
-    gulp.src(paths.dev + '/fonts/**/*.woff', { encoding: false })
-        .pipe(gulp.dest(paths.fonts))
-});
-
-// Run: gulp imagemin
-gulp.task( 'imagemin', async function() {
-    // gulp-imagemin 8+ is ESM-only
-    var imagemin = ( await import( 'gulp-imagemin' ) ).default;
-    gulp.src( paths.imgsrc + '/**/*.png', { encoding: false } )
-        .pipe( imagemin() )
-        .pipe( gulp.dest( paths.img ) );
+// Run gulp copy all fonts
+gulp.task('copy-fonts', function () {
+    return gulp.src(paths.dev + '/fonts/**/*.woff', { encoding: false })
+        .pipe(gulp.dest(paths.fonts));
 });
 
 // Run gulp browser-sync
-gulp.task('browser-sync', async function() {
-    browserSync.init({
-        server: {
-            baseDir: 'dist'
-        },
-    });
+gulp.task('browser-sync', function(done) {
+    browserSync.init( bsOptions, done );
 });
 
 //Run gulp release
-gulp.task('release', async function () {
-    gulp.src('./dist/*', { encoding: false })
+gulp.task('release', function () {
+    return gulp.src('./dist/**/*', { encoding: false })
         .pipe(zip('release.zip'))
         .pipe(gulp.dest('./_RELEASE'));
-});
-
-// Run gulp modernizr-build
-gulp.task('modernizr-build', async function () {
-    gulp.src('./src/js/*.js')
-        .pipe(modernizr('modernizr-custom.js'));
 });
 
 // Run gulp pug
