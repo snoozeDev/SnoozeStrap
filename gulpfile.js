@@ -9,7 +9,6 @@ var rename = require( 'gulp-rename' );
 var concat = require( 'gulp-concat' );
 var uglify = require( 'gulp-uglify' );
 var zip = require('gulp-zip');
-var modernizr = require('gulp-modernizr');
 var pug = require('gulp-pug');
 var browserSync = require('browser-sync').create();
 
@@ -121,20 +120,6 @@ gulp.task('copy-fonts', function () {
         .pipe(gulp.dest(paths.fonts));
 });
 
-// Run: gulp imagemin
-gulp.task( 'imagemin', async function() {
-    // gulp-imagemin 8+ is ESM-only
-    var imagemin = ( await import( 'gulp-imagemin' ) ).default;
-    await new Promise( function( resolve, reject ) {
-        gulp.src( paths.imgsrc + '/**/*.png', { encoding: false } )
-            .pipe( imagemin() )
-            .on( 'error', reject )
-            .pipe( gulp.dest( paths.img ) )
-            .on( 'error', reject )
-            .on( 'finish', resolve );
-    });
-});
-
 // Run gulp browser-sync
 gulp.task('browser-sync', function(done) {
     browserSync.init( bsOptions, done );
@@ -145,13 +130,6 @@ gulp.task('release', function () {
     return gulp.src('./dist/**/*', { encoding: false })
         .pipe(zip('release.zip'))
         .pipe(gulp.dest('./_RELEASE'));
-});
-
-// Run gulp modernizr-build
-gulp.task('modernizr-build', function () {
-    return gulp.src('./src/js/*.js')
-        .pipe(modernizr('modernizr-custom.js'))
-        .pipe(gulp.dest(paths.devjs));
 });
 
 // Run gulp pug

@@ -4,7 +4,8 @@
   "description": "An easy-to-use HTML framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "modernizr": "modernizr -c modernizr-config.json -d src/js/modernizr-custom.js"
   },
   "keywords": [
     "HTML5",
@@ -29,8 +30,6 @@
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
-    "gulp-imagemin": "^9.2.0",
-    "gulp-modernizr": "^5.0.3",
     "gulp-plumber": "^1.2.1",
     "gulp-pug": "^5.0.0",
     "gulp-rename": "^2.1.0",
